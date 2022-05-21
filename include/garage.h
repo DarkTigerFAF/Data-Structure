@@ -4,12 +4,13 @@
 #include<set>
 
 using namespace std;
+struct Date {
+    int day, month, year;
+};
 struct Service {
     string name;
     int price;
-};
-struct Date {
-    int day, month, year;
+    Date date;
 };
 struct Garage_receipt {
     int Process_ID = 0;
@@ -29,7 +30,9 @@ public:
 
     void Display_garage();
 
-    static void DisplayGarage(int turn, string currentcustomer);
+    static void DisplayGarage(int turn, string name, vector<Service>& service);
+
+    static void DisplayGarage(int turn);
 
     static vector<garage> Garages;
 };

@@ -104,7 +104,7 @@ void Admin::Administration() {
             Rooms[choice].car.push_back(GetCar(Rooms[choice]));
         }
         if (choice == 4) {
-            DisplayGarage(-1, customer::currentcustomer);
+            DisplayGarage(-1);
             cout << "Please enter the index of the garage you wish to add service to : " << endl;
             cin >> choice;
             system("cls");
@@ -160,7 +160,7 @@ void Admin::Administration() {
         }
         if (choice == 2) {
             int idx;
-            DisplayGarage(-1, customer::currentcustomer);
+            DisplayGarage(-1);
             cout << "Please enter the index of the garage : " << endl;
             cin >> idx;
             system("cls");
@@ -245,7 +245,7 @@ void Admin::Administration() {
         }
         if (choice == 4) {
             int idx1, idx2;
-            DisplayGarage(1, customer::currentcustomer);
+            DisplayGarage(1);
             cout << "Enter the index of the garage : " << endl;
             cin >> idx1;
             cout << "Enter the index of the service : " << endl;
@@ -295,7 +295,7 @@ void Admin::Administration() {
         }
         if (choice == 2) {
             int idx;
-            DisplayGarage(-1, customer::currentcustomer);
+            DisplayGarage(-1);
             cout << "Enter the index of the garage : " << endl;
             cin >> idx;
 
@@ -313,7 +313,7 @@ void Admin::Administration() {
         }
         if (choice == 4) {
             int idx1, idx2;
-            DisplayGarage(0, customer::currentcustomer);
+            DisplayGarage(0);
             cout << "Enter the index of the garage : " << endl;
             cin >> idx1;
             cout << "Enter the index the service : " << endl;

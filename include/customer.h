@@ -18,18 +18,19 @@ class customer {
 public:
     static string currentcustomer;
     static set<pair<string, string> > user;
-    static set<string> username;
-    vector<Service> HistoricSrevice;
+    string name, pass;
+    vector<Service> HistoricService;
+    static vector<customer> Customers;
 
-    void registration();
+    static void registration();
 
-    void login();
+    static customer login();
 
-    void displayAll();
+    static void displayAll(customer &Cust);
 
-    void search();
+    static void search();
 
-    void page();
+    static void page();
 };
 
 class Admin {

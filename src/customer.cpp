@@ -9,9 +9,7 @@ using namespace std;
 #define DisplayGarage garage::DisplayGarage
 #define Garages garage::Garages
 set<pair<string, string> > customer::user;
-set<string>customer::username;
 string customer::currentcustomer;
-string name, pw;
 
 template<typename T>
 void Erase(vector<T> &X, int idx) {
@@ -21,38 +19,45 @@ void Erase(vector<T> &X, int idx) {
 }
 
 void customer::registration() {
+    string name, pw;
     cout << "Enter User Name :";
     cin >> name;
     cout << "Enter Password:";
     cin >> pw;
-    if (username.count(name)) {
+    auto it = user.lower_bound({name, ""});
+    if (it->first == name) {
         cout << "Username already exists!" << endl;
         registration();
     } else {
         user.insert({name, pw});
-        username.insert(name);
         cout << "Registration Is Successfull! " << endl;
         system("cls");
         login();
     }
 }
 
-void customer::login() {
+customer customer::login() {
+    customer X;
     cout << "Enter User Name :";
-    cin >> name;
+    cin >> X.name;
     cout << "Enter Password:";
-    cin >> pw;
-    if (user.count({name, pw})) {
+    cin >> X.pass;
+    if (user.count({X.name, X.pass})) {
         system("cls");
+        for (auto u : Customers) {
+            if (u.name == X.name && u.pass == X.pass) {
+                X = u;
+                break;
+            }
+        }
         cout << "Your Login Is Successfull!" << endl;
-        customer::currentcustomer = name;
     } else {
         system("cls");
         cout << "Login Error..Check Your Username and Password!" << endl;
         cout << endl;
         login();
     }
-
+    return X;
 }
 
 void ShowRoomReceipt(ShowRoom_receipt receipt) {
@@ -73,13 +78,14 @@ void customer::page() {
     cout << "If You Are Admin Press 1" << endl;
     cout << "If You Are Customer Press 2" << endl;
     cin >> x;
+    customer Logged;
     if (x == 2) {
         cout << "Press 1 To Login" << endl;
         cout << "Press 2 To Registration" << endl;
         cin >> c;
         switch (c) {
             case 1:
-                login();
+                Logged = login();
                 break;
             case 2:
                 registration();
@@ -95,7 +101,7 @@ void customer::page() {
         cin >> plaa2;
         switch (plaa2) {
             case 1:
-                displayAll();
+                displayAll(Logged);
                 break;
             case 2:
                 search();
@@ -126,7 +132,7 @@ void customer::page() {
     }
 }
 
-void customer::displayAll() {
+void customer::displayAll(customer &Cust) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int year = 1900 + ltm->tm_year;
@@ -134,9 +140,10 @@ void customer::displayAll() {
     int today = ltm->tm_mday;
     int plaa;
     Display:
-    cout << "1: Buy/Rent Car " << endl;
-    cout << "2: Services " << endl;
-    cout << "3: Logout " << endl;
+    cout << "1: Buy/Rent Car" << endl;
+    cout << "2: Services" << endl;
+    cout << "3: Service History" << endl;
+    cout << "4: Logout " << endl;
     cout << "Enter Your Choice :" << endl;
     cin >> plaa;
     if (plaa == 1) {
@@ -161,7 +168,7 @@ void customer::displayAll() {
             if (c == 'y') {
                 ShowRoom_receipt receipt;
                 receipt.Process_ID++;
-                receipt.Customer_ID = name;
+                receipt.Customer_ID = Cust.name;
                 receipt.date.day = today;
                 receipt.date.month = month;
                 receipt.date.year = year;
@@ -187,7 +194,7 @@ void customer::displayAll() {
             } else {
                 ShowRoom_receipt receipt;
                 receipt.Process_ID++;
-                receipt.Customer_ID = name;
+                receipt.Customer_ID = Cust.name;
                 receipt.date.day = today;
                 receipt.date.month = month;
                 receipt.date.year = year;
@@ -214,7 +221,7 @@ void customer::displayAll() {
             cin >> days;
             ShowRoom_receipt receipt;
             receipt.Process_ID++;
-            receipt.Customer_ID = name;
+            receipt.Customer_ID = Cust.name;
             receipt.date.day = today;
             receipt.date.month = month;
             receipt.date.year = year;
@@ -239,9 +246,16 @@ void customer::displayAll() {
 
     } else if (plaa == 2) {
         system("cls");
-        DisplayGarage(1, name);
+        DisplayGarage(1, Cust.name, Cust.HistoricService);
 
     } else if (plaa == 3) {
+        for(auto u : Cust.HistoricService){
+            cout << "-Service Name : " << u.name << endl;
+            cout << "-Service Price : " << u.price << endl;
+            printf("%d/%d/%d\n", u.date.day, u.date.month, u.date.year);
+        }
+    }
+    else if (plaa == 4) {
         system("cls");
         page();
     } else {

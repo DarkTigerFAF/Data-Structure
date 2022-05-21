@@ -27,7 +27,7 @@ void GarageReceipt(Garage_receipt receipt) {
     cout << "Service Name: " << receipt.servicename << endl;
 }
 
-void DisplayGarage(int turn, string currentcustomer) {
+void DisplayGarage(int turn, string name, vector<Service>& service) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int year = 1900 + ltm->tm_year;
@@ -54,9 +54,10 @@ void DisplayGarage(int turn, string currentcustomer) {
             cin >> ans1;
             cout << "Enter The Index Of The Service: " << endl;
             cin >> ans2;
-            Garage_receipt receipt = {++counter, currentcustomer, {today, month, year},
+            Garage_receipt receipt = {++counter, name, {today, month, year},
                                       Garages[ans1].service[ans2].price,
                                       Garages[ans1].service[ans2].name};
+            service.push_back(Garages[ans1].service[ans2]);
             cout << "Do You Want Show Your Receipt? (y/n)" << endl;
             char c;
             cin >> c;
@@ -65,11 +66,25 @@ void DisplayGarage(int turn, string currentcustomer) {
                 cout << endl;
 
             }
-            Garages[ans1].cnt.insert(currentcustomer);
+            Garages[ans1].cnt.insert(name);
             cout << Garages[ans1].cnt.size() << " In The Queue" << endl;
             return;
         } else {
             cout << "Ok!" << endl;
         }
+    }
+}
+
+void DisplayGarage(int turn) {
+    int idx = 0;
+    for (auto u : Garages) {
+        cout << "Garage Name : " << u.name << endl;
+        cout << "Garage Location : " << u.location << endl;
+        cout << "Garage Phone Number : " << u.phone << endl;
+        cout << "Garage Queue Line : " << u.cnt.size() << endl;
+        cout << "Garage Index : " << idx++ << endl;
+        if (turn > -1 && !u.service.empty())
+            cout << "-Services :" << endl;
+        u.Display_garage();
     }
 }

@@ -53,10 +53,17 @@ void GoodMorning() {
     input.open("Users.txt");
     input >> n;
     for (int i = 0; i < n; i++) {
-        string name, pass;
-        input >> name >> pass;
-        customer::user.insert({name, pass});
-        customer::username.insert(name);
+        customer X;
+        input >> X.name >> X.pass;
+        customer::user.insert({X.name, X.pass});
+        int m; input >> m;
+        for (int j = 0; j < m; j++) {
+            Service Y;
+            Date date;
+            input >> Y.name >> Y.price >> date.day >> date.month >> date.year;
+            X.HistoricService.push_back(Y);
+        }
+        customer::Customers.push_back(X);
     }
     input.close();
 }
@@ -91,15 +98,18 @@ void GoodBye() {
 
     output.open("Users.txt");
     output << customer::user.size() << endl;
-    for (auto u : customer::user)
-        output << u.first << ' ' << u.second << endl;
+    for (auto u : customer::Customers) {
+        output << u.name << ' ' << u.pass << endl;
+        output << u.HistoricService.size() << endl;
+        for(auto v : u.HistoricService)
+            output << v.name << ' ' << v.price << ' ' << v.date.day << ' ' << v.date.month << ' ' << v.date.year << endl;
+    }
 
     output.close();
 }
 
 int main() {
-    customer c;
     GoodMorning();
-    c.page();
+    customer::page();
     GoodBye();
 }

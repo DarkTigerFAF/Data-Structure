@@ -66,10 +66,10 @@ RM = "D:\CLion 2021.1.3\bin\cmake\win\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\DarkTiger N\Desktop\Carshowrooms"
+CMAKE_SOURCE_DIR = "C:\Users\DarkTiger N\Desktop\Showroom"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\DarkTiger N\Desktop\Carshowrooms\cmake-build-debug"
+CMAKE_BINARY_DIR = "C:\Users\DarkTiger N\Desktop\Showroom\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -98,9 +98,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DarkTiger N\Desktop\Carshowrooms\cmake-build-debug\CMakeFiles" "C:\Users\DarkTiger N\Desktop\Carshowrooms\cmake-build-debug\\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DarkTiger N\Desktop\Showroom\cmake-build-debug\CMakeFiles" "C:\Users\DarkTiger N\Desktop\Showroom\cmake-build-debug\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DarkTiger N\Desktop\Carshowrooms\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DarkTiger N\Desktop\Showroom\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
