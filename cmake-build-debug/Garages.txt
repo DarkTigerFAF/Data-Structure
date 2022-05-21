@@ -1,8 +1,12 @@
-2
+3
 mazen abbasia 010200950
 0
 0
 mazen abbasia 010239023
 1
-clean 2000
+clean 2000 
+0
+mazen abbasia 23020320
+1
+washing 2000 
 0

@@ -1,5 +1,6 @@
 #include<vector>
 #include<iostream>
+
 using namespace std;
 
 struct Car {
@@ -9,14 +10,18 @@ struct Car {
     int installment;
     int deadline = 0;
 };
+
 class ShowRooms {
-    public:
+public:
     int cnt;
     string name;
     string location;
     string phone;
     vector<Car> car;
+
     void Display();
-    static void DisplayShowRooms(int turn) ;
+
+    static void DisplayShowRooms(int turn);
+
     static vector<ShowRooms> Rooms;
 };

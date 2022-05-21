@@ -81,11 +81,11 @@ void GoodBye() {
         output << u.name << ' ' << u.location << ' ' << u.phone << endl;
         output << u.service.size() << endl;
         for (auto v : u.service)
-            output << v.name << ' ' << v.price << endl;
+            output << v.name << ' ' << v.price << ' ' << endl;
 
         output << u.cnt.size() << endl;
         for (auto v : u.cnt)
-            cout << v << endl;
+            output << v << endl;
     }
     output.close();
 
@@ -102,5 +102,4 @@ int main() {
     GoodMorning();
     c.page();
     GoodBye();
-
 }

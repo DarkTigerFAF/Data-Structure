@@ -6,20 +6,6 @@
 
 #IncludeRegexTransform: 
 
-../include/customer.h
-iostream
--
-string.h
--
-garage.h
-../include/garage.h
-showrooms.h
-../include/showrooms.h
-set
--
-map
--
-
 ../include/garage.h
 vector
 -
@@ -30,19 +16,13 @@ string
 set
 -
 
-../include/showrooms.h
+C:/Users/DarkTiger N/Desktop/Carshowrooms/src/garage.cpp
 vector
 -
 iostream
 -
-
-C:/Users/DarkTiger N/Desktop/Carshowrooms/main.cpp
-iostream
+ctime
 -
-set
--
-fstream
--
-customer.h
-C:/Users/DarkTiger N/Desktop/Carshowrooms/customer.h
+garage.h
+C:/Users/DarkTiger N/Desktop/Carshowrooms/src/garage.h
 
