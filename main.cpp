@@ -12,7 +12,7 @@ using namespace std;
 void GoodMorning() {
     ifstream input;
     input.open("Showrooms.txt");
-    int n;
+    int n = 0;
     input >> n;
     for (int i = 0; i < n; i++) {
         ShowRooms X;
@@ -97,7 +97,7 @@ void GoodBye() {
     output.close();
 
     output.open("Users.txt");
-    output << customer::user.size() << endl;
+    output << customer::Customers.size() << endl;
     for (auto u : customer::Customers) {
         output << u.name << ' ' << u.pass << endl;
         output << u.HistoricService.size() << endl;

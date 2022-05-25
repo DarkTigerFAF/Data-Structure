@@ -9,6 +9,7 @@ using namespace std;
 #define DisplayGarage garage::DisplayGarage
 #define Garages garage::Garages
 set<pair<string, string> > customer::user;
+vector<customer> customer::Customers;
 string customer::currentcustomer;
 
 template<typename T>
@@ -29,9 +30,12 @@ void customer::registration() {
         cout << "Username already exists!" << endl;
         registration();
     } else {
+        customer New;
+        New.name = name, New.pass = pw;
         user.insert({name, pw});
         cout << "Registration Is Successfull! " << endl;
         system("cls");
+        Customers.push_back(New);
         login();
     }
 }

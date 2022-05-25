@@ -36,13 +36,13 @@ vector
 iostream
 -
 
-C:/Users/DarkTiger N/Desktop/Showroom/main.cpp
-iostream
--
+C:/Users/DarkTiger N/Desktop/Showroom/src/customer.cpp
+customer.h
+C:/Users/DarkTiger N/Desktop/Showroom/src/customer.h
 set
 -
-fstream
+iostream
 -
-customer.h
-C:/Users/DarkTiger N/Desktop/Showroom/customer.h
+ctime
+-
 
