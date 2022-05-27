@@ -16,7 +16,7 @@ void GoodMorning() {
     input >> n;
     for (int i = 0; i < n; i++) {
         ShowRooms X;
-        input >> X.cnt >> X.name >> X.location >> X.phone;
+        input >> X.name >> X.location >> X.phone;
         int m;
         input >> m;
         for (int j = 0; j < m; j++) {
@@ -59,8 +59,7 @@ void GoodMorning() {
         int m; input >> m;
         for (int j = 0; j < m; j++) {
             Service Y;
-            Date date;
-            input >> Y.name >> Y.price >> date.day >> date.month >> date.year;
+            input >> Y.name >> Y.price >> Y.date.day >> Y.date.month >> Y.date.year;
             X.HistoricService.push_back(Y);
         }
         customer::Customers.push_back(X);
@@ -73,7 +72,7 @@ void GoodBye() {
     output.open("Showrooms.txt");
     output << Rooms.size() << endl;
     for (auto u : Rooms) {
-        output << ' ' << u.cnt << ' ' << u.name << ' ' << u.location << ' ' << u.phone << endl;
+        output << u.name << ' ' << u.location << ' ' << u.phone << endl;
         output << u.car.size() << endl;
         for (auto v : u.car) {
             output << ' ' << v.price << ' ' << v.year << ' ' << v.make << ' ' << v.model << ' ' << v.installment << ' '

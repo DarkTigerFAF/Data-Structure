@@ -8,6 +8,7 @@ using namespace std;
 #define DisplayShowRooms ShowRooms::DisplayShowRooms
 #define DisplayGarage garage::DisplayGarage
 #define Garages garage::Garages
+#define Cust (*Cust)
 set<pair<string, string> > customer::user;
 vector<customer> customer::Customers;
 string customer::currentcustomer;
@@ -40,20 +41,22 @@ void customer::registration() {
     }
 }
 
-customer customer::login() {
-    customer X;
+int customer::login() {
+    int idx;
+    string n, p;
     cout << "Enter User Name :";
-    cin >> X.name;
+    cin >> n;
     cout << "Enter Password:";
-    cin >> X.pass;
-    if (user.count({X.name, X.pass})) {
+    cin >> p;
+    if (user.count({n, p})) {
         system("cls");
-        for (auto u : Customers) {
-            if (u.name == X.name && u.pass == X.pass) {
-                X = u;
+        for(int i = 0; i < Customers.size(); i++){
+            if(Customers[i].name == n && Customers[i].pass == p){
+                idx = i;
                 break;
             }
         }
+
         cout << "Your Login Is Successfull!" << endl;
     } else {
         system("cls");
@@ -61,7 +64,7 @@ customer customer::login() {
         cout << endl;
         login();
     }
-    return X;
+    return idx;
 }
 
 void ShowRoomReceipt(ShowRoom_receipt receipt) {
@@ -82,14 +85,14 @@ void customer::page() {
     cout << "If You Are Admin Press 1" << endl;
     cout << "If You Are Customer Press 2" << endl;
     cin >> x;
-    customer Logged;
+    customer *Logged;
     if (x == 2) {
         cout << "Press 1 To Login" << endl;
         cout << "Press 2 To Registration" << endl;
         cin >> c;
         switch (c) {
             case 1:
-                Logged = login();
+                Logged = &Customers[login()];
                 break;
             case 2:
                 registration();
@@ -136,7 +139,7 @@ void customer::page() {
     }
 }
 
-void customer::displayAll(customer &Cust) {
+void customer::displayAll(customer Cust) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int year = 1900 + ltm->tm_year;
@@ -248,21 +251,23 @@ void customer::displayAll(customer &Cust) {
 
         }
 
-    } else if (plaa == 2) {
+    }
+    else if (plaa == 2) {
         system("cls");
         DisplayGarage(1, Cust.name, Cust.HistoricService);
-
-    } else if (plaa == 3) {
+    }
+    else if (plaa == 3) {
         for(auto u : Cust.HistoricService){
             cout << "-Service Name : " << u.name << endl;
             cout << "-Service Price : " << u.price << endl;
-            printf("%d/%d/%d\n", u.date.day, u.date.month, u.date.year);
+            cout << u.date.day << '/' << u.date.month << '/' << u.date.year << endl;
         }
     }
     else if (plaa == 4) {
         system("cls");
         page();
-    } else {
+    }
+    else {
         system("cls");
         cout << "Please Enter From Options Given Above";
         goto Display;

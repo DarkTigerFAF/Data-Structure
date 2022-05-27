@@ -24,9 +24,9 @@ public:
 
     static void registration();
 
-    static customer login();
+    static int login();
 
-    static void displayAll(customer &Cust);
+    static void displayAll(customer *Cust);
 
     static void search();
 

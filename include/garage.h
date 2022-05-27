@@ -30,7 +30,7 @@ public:
 
     void Display_garage();
 
-    static void DisplayGarage(int turn, string name, vector<Service>& service);
+    static void DisplayGarage(int turn, string &name, vector<Service>& service);
 
     static void DisplayGarage(int turn);
 

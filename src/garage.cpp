@@ -27,7 +27,7 @@ void GarageReceipt(Garage_receipt receipt) {
     cout << "Service Name: " << receipt.servicename << endl;
 }
 
-void DisplayGarage(int turn, string name, vector<Service>& service) {
+void DisplayGarage(int turn, string &name, vector<Service> &service) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int year = 1900 + ltm->tm_year;
@@ -59,14 +59,13 @@ void DisplayGarage(int turn, string name, vector<Service>& service) {
                                       Garages[ans1].service[ans2].name};
             Garages[ans1].service[ans2].date = {today, month, year};
             service.push_back(Garages[ans1].service[ans2]);
-
+            cout << service.size() << endl;
             cout << "Do You Want Show Your Receipt? (y/n)" << endl;
             char c;
             cin >> c;
             if (c == 'y') {
                 GarageReceipt(receipt);
                 cout << endl;
-
             }
             Garages[ans1].cnt.insert(name);
             cout << Garages[ans1].cnt.size() << " In The Queue" << endl;

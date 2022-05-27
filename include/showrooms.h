@@ -13,7 +13,6 @@ struct Car {
 
 class ShowRooms {
 public:
-    int cnt;
     string name;
     string location;
     string phone;
