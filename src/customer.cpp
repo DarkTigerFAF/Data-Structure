@@ -50,8 +50,8 @@ int customer::login() {
     cin >> p;
     if (user.count({n, p})) {
         system("cls");
-        for(int i = 0; i < Customers.size(); i++){
-            if(Customers[i].name == n && Customers[i].pass == p){
+        for (int i = 0; i < Customers.size(); i++) {
+            if (Customers[i].name == n && Customers[i].pass == p) {
                 idx = i;
                 break;
             }
@@ -168,106 +168,83 @@ void customer::displayAll(customer Cust) {
         cout << "2: Rent" << endl;
         int choose;
         cin >> choose;
+
+        ShowRoom_receipt receipt;
+        receipt.Process_ID++;
+        receipt.Customer_ID = Cust.name;
+        receipt.date.day = today;
+        receipt.date.month = month;
+        receipt.date.year = year;
+
         if (choose == 1) {
             cout << "Do you want to book it for a specific time? (y/n)" << endl;
             char c;
             cin >> c;
             if (c == 'y') {
-                ShowRoom_receipt receipt;
-                receipt.Process_ID++;
-                receipt.Customer_ID = Cust.name;
-                receipt.date.day = today;
-                receipt.date.month = month;
-                receipt.date.year = year;
                 receipt.Amount_of_money += Rooms[idx1].car[idx2].price;
                 receipt.Chosen_car.model = Rooms[idx1].car[idx2].model;
-                cout << "For How Many Days?" << endl;
+
                 int days;
+                cout << "For How Many Days?" << endl;
                 cin >> days;
                 cout << "Your car has been booked until " << today + days << "/" << month << "/" << year << endl;
                 cout << "Do You Want Show Your Receipt? (y/n)" << endl;
                 cin >> c;
-                if (c == 'y') {
-                    ShowRoomReceipt(receipt);
-                    cout << "Congrats, Purchase Completed!" << endl;
-                    Erase(Rooms[idx1].car, idx2);
-                    return;
-                } else {
-                    cout << "Congrats, Purchase Completed!" << endl;
-                    Erase(Rooms[idx1].car, idx2);
-                    return;
-                }
 
+                if (c == 'y')
+                    ShowRoomReceipt(receipt);
+
+                cout << "Congrats, Purchase Completed!" << endl;
+                Erase(Rooms[idx1].car, idx2);
+                return;
             } else {
-                ShowRoom_receipt receipt;
-                receipt.Process_ID++;
-                receipt.Customer_ID = Cust.name;
-                receipt.date.day = today;
-                receipt.date.month = month;
-                receipt.date.year = year;
                 receipt.Amount_of_money += Rooms[idx1].car[idx2].price;
                 receipt.Chosen_car.model = Rooms[idx1].car[idx2].model;
                 cout << "Do You Want Show Your Receipt? (y/n)" << endl;
                 cin >> c;
-                if (c == 'y') {
-                    ShowRoomReceipt(receipt);
-                    cout << "Congrats, Purchase Completed!" << endl;
-                    Erase(Rooms[idx1].car, idx2);
-                    return;
-                } else {
-                    cout << "Congrats, Purchase Completed!" << endl;
-                    Erase(Rooms[idx1].car, idx2);
-                    return;
-                }
 
+                if (c == 'y')
+                    ShowRoomReceipt(receipt);
+
+                cout << "Congrats, Purchase Completed!" << endl;
+                Erase(Rooms[idx1].car, idx2);
+                return;
             }
         }
         if (choose == 2) {
-            cout << "How Many Days?\n" << "One Day Is Equal To 0.1% Of The Total Value Of The Car" << endl;
             int days;
+            cout << "How Many Days?\n" << "One Day Is Equal To 0.1% Of The Total Value Of The Car" << endl;
             cin >> days;
-            ShowRoom_receipt receipt;
-            receipt.Process_ID++;
-            receipt.Customer_ID = Cust.name;
-            receipt.date.day = today;
-            receipt.date.month = month;
-            receipt.date.year = year;
             receipt.Amount_of_money += days * (Rooms[idx1].car[idx2].price * 0.01);
             receipt.Chosen_car.model = Rooms[idx1].car[idx2].model;
             Rooms[idx1].car[idx2].deadline = today + days;
+
             if (Rooms[idx1].car[idx2].deadline > 30)
                 Rooms[idx1].car[idx2].deadline -= 30;
-            cout << "Do You Want Show Your Receipt? (y/n)" << endl;
-            char c;
-            cin >> c;
-            if (c == 'y') {
-                ShowRoomReceipt(receipt);
-                cout << "Enjoy Your Time!" << endl;
-                return;
-            } else {
-                cout << "Enjoy Your Time!" << endl;
-                return;
-            }
 
+            char c;
+            cout << "Do You Want Show Your Receipt? (y/n)" << endl;
+            cin >> c;
+            if (c == 'y')
+                ShowRoomReceipt(receipt);
+
+            cout << "Enjoy Your Time!" << endl;
+            return;
         }
 
-    }
-    else if (plaa == 2) {
+    } else if (plaa == 2) {
         system("cls");
         DisplayGarage(1, Cust.name, Cust.HistoricService);
-    }
-    else if (plaa == 3) {
-        for(auto u : Cust.HistoricService){
+    } else if (plaa == 3) {
+        for (auto u : Cust.HistoricService) {
             cout << "-Service Name : " << u.name << endl;
             cout << "-Service Price : " << u.price << endl;
             cout << u.date.day << '/' << u.date.month << '/' << u.date.year << endl;
         }
-    }
-    else if (plaa == 4) {
+    } else if (plaa == 4) {
         system("cls");
         page();
-    }
-    else {
+    } else {
         system("cls");
         cout << "Please Enter From Options Given Above";
         goto Display;

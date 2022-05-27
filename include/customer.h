@@ -10,7 +10,7 @@ struct ShowRoom_receipt {
     int Process_ID = 0;
     string Customer_ID;
     Date date;
-    int Amount_of_money = 0;
+    double Amount_of_money = 0;
     Car Chosen_car;
 };
 
