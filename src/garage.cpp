@@ -59,7 +59,6 @@ void DisplayGarage(int turn, string &name, vector<Service> &service) {
                                       Garages[ans1].service[ans2].name};
             Garages[ans1].service[ans2].date = {today, month, year};
             service.push_back(Garages[ans1].service[ans2]);
-            cout << service.size() << endl;
             cout << "Do You Want Show Your Receipt? (y/n)" << endl;
             char c;
             cin >> c;
