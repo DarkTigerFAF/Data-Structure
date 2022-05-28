@@ -16,17 +16,20 @@ struct ShowRoom_receipt {
 
 class customer {
 public:
-    static string currentcustomer;
-    static set<pair<string, string> > user;
     string name, pass;
     vector<Service> HistoricService;
+
+    //static string currentcustomer;
+
+    static set<pair<string, string> > user;
+
     static vector<customer> Customers;
 
     static void registration();
 
     static int login();
 
-    static void displayAll(customer *Cust);
+    static void displayAll(customer &Cust);
 
     static void search();
 
@@ -37,9 +40,9 @@ class Admin {
 public:
     const string admainName = "admin", id, password = "admin";
 
-    static Car GetCar(ShowRooms &X);
+    static void GetCar(ShowRooms &X);
 
-    static Service GetService(garage &X);
+    static void GetService(garage &X);
 
     static void AddShow();
 

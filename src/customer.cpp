@@ -8,10 +8,8 @@ using namespace std;
 #define DisplayShowRooms ShowRooms::DisplayShowRooms
 #define DisplayGarage garage::DisplayGarage
 #define Garages garage::Garages
-#define Cust (*Cust)
 set<pair<string, string> > customer::user;
 vector<customer> customer::Customers;
-string customer::currentcustomer;
 
 template<typename T>
 void Erase(vector<T> &X, int idx) {
@@ -22,51 +20,53 @@ void Erase(vector<T> &X, int idx) {
 
 void customer::registration() {
     string name, pw;
-    cout << "Enter User Name :";
+    cout << "Enter Username : ";
     cin >> name;
-    cout << "Enter Password:";
+    cout << "Enter Password: ";
     cin >> pw;
     auto it = user.lower_bound({name, ""});
     if (it->first == name) {
+        system("cls");
         cout << "Username already exists!" << endl;
         registration();
     } else {
         customer New;
         New.name = name, New.pass = pw;
         user.insert({name, pw});
-        cout << "Registration Is Successfull! " << endl;
         system("cls");
+        cout << "Registration Is Successfull! " << endl;
         Customers.push_back(New);
         login();
     }
 }
 
 int customer::login() {
-    int idx;
+    int idx = 0;
     string n, p;
-    cout << "Enter User Name :";
+    cout << "Enter Username : ";
     cin >> n;
-    cout << "Enter Password:";
+    cout << "Enter Password: ";
     cin >> p;
-    if (user.count({n, p})) {
+    if (user.count({n, p})) { //O(log(N))
         system("cls");
-        for (int i = 0; i < Customers.size(); i++) {
+        for (int i = 0; i < Customers.size(); i++) { //O(N)
             if (Customers[i].name == n && Customers[i].pass == p) {
                 idx = i;
                 break;
             }
         }
-
         cout << "Your Login Is Successfull!" << endl;
     } else {
         system("cls");
-        cout << "Login Error..Check Your Username and Password!" << endl;
+        cout << "Login error, check your username or password!" << endl;
         cout << endl;
         login();
     }
+
     return idx;
 }
 
+// Bassel's task
 void ShowRoomReceipt(ShowRoom_receipt receipt) {
     cout << "Process ID: " << receipt.Process_ID << endl;
     cout << "Customer ID: " << receipt.Customer_ID << endl;
@@ -75,6 +75,7 @@ void ShowRoomReceipt(ShowRoom_receipt receipt) {
     cout << "Car Model: " << receipt.Chosen_car.model << endl;
 }
 
+// etfahmo m3 b3d b2a
 void customer::page() {
     Login:
     int c, plaa2;
@@ -85,14 +86,14 @@ void customer::page() {
     cout << "If You Are Admin Press 1" << endl;
     cout << "If You Are Customer Press 2" << endl;
     cin >> x;
-    customer *Logged;
+    int idx = 0;
     if (x == 2) {
         cout << "Press 1 To Login" << endl;
         cout << "Press 2 To Registration" << endl;
         cin >> c;
         switch (c) {
             case 1:
-                Logged = &Customers[login()];
+                idx = login();
                 break;
             case 2:
                 registration();
@@ -108,7 +109,7 @@ void customer::page() {
         cin >> plaa2;
         switch (plaa2) {
             case 1:
-                displayAll(Logged);
+                displayAll(Customers[idx]);
                 break;
             case 2:
                 search();
@@ -117,7 +118,8 @@ void customer::page() {
                 break;
         }
 
-    } else if (x == 1) {
+    }
+    else if (x == 1) {
         Admin admin;
         string name, pass;
         cout << "Enter Username: " << endl;
@@ -131,15 +133,14 @@ void customer::page() {
             cout << endl;
             goto Login;
         }
-
-
     } else {
         cout << "Please Select From Options Given Above " << endl;
         page();
     }
 }
 
-void customer::displayAll(customer Cust) {
+
+void customer::displayAll(customer &Cust) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int year = 1900 + ltm->tm_year;
@@ -150,9 +151,10 @@ void customer::displayAll(customer Cust) {
     cout << "1: Buy/Rent Car" << endl;
     cout << "2: Services" << endl;
     cout << "3: Service History" << endl;
-    cout << "4: Logout " << endl;
-    cout << "Enter Your Choice :" << endl;
+    cout << "4: Logout" << endl;
+    cout << "Enter Your Choice : " << endl;
     cin >> plaa;
+    system("cls");
     if (plaa == 1) {
         system("cls");
         int idx1, idx2;
@@ -215,10 +217,15 @@ void customer::displayAll(customer Cust) {
             int days;
             cout << "How Many Days?\n" << "One Day Is Equal To 0.1% Of The Total Value Of The Car" << endl;
             cin >> days;
-            receipt.Amount_of_money += days * (Rooms[idx1].car[idx2].price * 0.01);
+            // 1 day = 1% price of car, 1 day = 0.01 * price of car
+            // 5 days = 5 * (0.01 * price)
+            receipt.Amount_of_money = days * (Rooms[idx1].car[idx2].price * 0.01);
             receipt.Chosen_car.model = Rooms[idx1].car[idx2].model;
             Rooms[idx1].car[idx2].deadline = today + days;
 
+            // today = 29, rent = 10 day -> deadline = 39 (this is wrong)
+            // if(deadline > 30) deadline = deadline - 30
+            // now deadline = 9 (this is correct)
             if (Rooms[idx1].car[idx2].deadline > 30)
                 Rooms[idx1].car[idx2].deadline -= 30;
 
@@ -232,19 +239,24 @@ void customer::displayAll(customer Cust) {
             return;
         }
 
-    } else if (plaa == 2) {
+    }
+    else if (plaa == 2) {
         system("cls");
+        //DisplayGarage(1 to show garage with services, Customer name, Customer Service History)
         DisplayGarage(1, Cust.name, Cust.HistoricService);
-    } else if (plaa == 3) {
+    }
+    else if (plaa == 3) {
         for (auto u : Cust.HistoricService) {
             cout << "-Service Name : " << u.name << endl;
             cout << "-Service Price : " << u.price << endl;
             cout << u.date.day << '/' << u.date.month << '/' << u.date.year << endl;
         }
-    } else if (plaa == 4) {
+    }
+    else if (plaa == 4) {
         system("cls");
         page();
-    } else {
+    }
+    else {
         system("cls");
         cout << "Please Enter From Options Given Above";
         goto Display;
@@ -256,17 +268,17 @@ void customer::search() {
     tm *ltm = localtime(&now);
     int today = ltm->tm_mday;
     int yournum;
-    cout << "1:Car " << endl;
-    cout << "2:ShowRooms " << endl;
-    cout << "3:Garages " << endl;
-    cout << "4:Services " << endl;
+    cout << "1: Car " << endl;
+    cout << "2: Showroom " << endl;
+    cout << "3: Garage " << endl;
+    cout << "4: Service " << endl;
     cout << "Enter Your Choice :" << endl;
     cin >> yournum;
     string name, model;
     bool found;
     switch (yournum) {
         case 1:
-            cout << "Please..Enter Car Name And Model . " << endl;
+            cout << "Enter car name and model." << endl;
             cout << "Car Name : " << endl;
             cin >> name;
             cout << "Car Model :" << endl;
@@ -311,11 +323,12 @@ void customer::search() {
             for (auto u : Garages) {
                 if (u.name == name) {
                     cout << "Garage location : " << u.location << endl;
-                    cout << "Garage phone number : " << u.phone << endl;
+                    cout << "Garage Phone number : " << u.phone << endl;
                     u.Display_garage();
                     found = true;
                 }
             }
+
             if (!found) cout << "Garage not found!" << endl;
 
             break;
@@ -334,9 +347,8 @@ void customer::search() {
             }
 
             if (!found) cout << "Service not found!" << endl;
+
             break;
-
-
         default:
             break;
     }

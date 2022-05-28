@@ -9,6 +9,8 @@ tm *ltm = localtime(&now);
 int day = ltm->tm_mday;
 vector<ShowRooms> ShowRooms::Rooms;
 
+// Bassel's task
+
 void ShowRooms::Display() {
     int idx = 0;
     for (auto u :car) {
@@ -34,5 +36,4 @@ void ShowRooms::DisplayShowRooms(int turn) {
             cout << endl;
         }
     }
-
 }

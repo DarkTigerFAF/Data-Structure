@@ -69,6 +69,7 @@ void GoodMorning() {
 
 void GoodBye() {
     ofstream output;
+
     output.open("Showrooms.txt");
     output << Rooms.size() << endl;
     for (auto u : Rooms) {

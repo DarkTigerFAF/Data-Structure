@@ -1,12 +1,15 @@
 #include<vector>
 #include <iostream>
-#include<ctime>
+#include <ctime>
 #include "garage.h"
 
 using namespace std;
 #define DisplayGarage garage::DisplayGarage
 #define Garages garage::Garages
 vector<garage> garage::Garages;
+
+// Fathy's task
+
 int counter = 0;
 
 void garage::Display_garage() {
@@ -27,6 +30,7 @@ void GarageReceipt(Garage_receipt receipt) {
     cout << "Service Name: " << receipt.servicename << endl;
 }
 
+// For customers only
 void DisplayGarage(int turn, string &name, vector<Service> &service) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
@@ -40,9 +44,10 @@ void DisplayGarage(int turn, string &name, vector<Service> &service) {
         cout << "Garage Phone Number : " << u.phone << endl;
         cout << "Garage Queue Line : " << u.cnt.size() << endl;
         cout << "Garage Index : " << idx++ << endl;
-        if (turn > -1 && !u.service.empty())
+        if (turn > -1 && !u.service.empty()) {
             cout << "-Services :" << endl;
-        u.Display_garage();
+            u.Display_garage();
+        }
     }
     if (turn > -1) {
         cout << "Do you want to make an appointment in a certain garage ? (y/n)" << endl;
@@ -66,6 +71,12 @@ void DisplayGarage(int turn, string &name, vector<Service> &service) {
                 GarageReceipt(receipt);
                 cout << endl;
             }
+            // cnt.insert(1)
+            // cnt.insert(1)
+            // cnt.insert(2)
+            // cnt.insert(1)
+            // cnt.size() -> 2
+            // we use set to remove duplicates
             Garages[ans1].cnt.insert(name);
             cout << Garages[ans1].cnt.size() << " In The Queue" << endl;
             return;
@@ -75,6 +86,7 @@ void DisplayGarage(int turn, string &name, vector<Service> &service) {
     }
 }
 
+// For admin only
 void DisplayGarage(int turn) {
     int idx = 0;
     for (auto u : Garages) {

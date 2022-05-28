@@ -13,14 +13,14 @@ int choice;
 #define AddGarage Admin::AddGarage
 #define Administration Admin::Administration
 
-template<typename T>
+template <typename T>
 void Erase(vector<T> &X, int idx) {
     swap(X[idx], X.back());
 
     if (!X.empty()) X.pop_back();
 }
 
-Car Admin::GetCar(ShowRooms &X) {
+void Admin::GetCar(ShowRooms &X) {
     Car c;
     cout << "Enter Car model : " << endl;
     cin >> c.model;
@@ -33,17 +33,17 @@ Car Admin::GetCar(ShowRooms &X) {
     cout << "Is Installment Available ? (1 / 0)" << endl;
     cin >> c.installment;
     system("cls");
-    return c;
+    X.car.push_back(c);
 }
 
-Service Admin::GetService(garage &X) {
+void Admin::GetService(garage &X) {
     Service x;
     cout << "Enter Service Name : " << endl;
     cin >> x.name;
     cout << "Enter Service Price : " << endl;
     cin >> x.price;
     system("cls");
-    return x;
+    X.service.push_back(x);
 }
 
 void Admin::AddShow() {
@@ -65,7 +65,7 @@ void Admin::AddShow() {
         int n;
         cin >> n;
         for (int i = 0; i < n; i++)
-            x.car.push_back(GetCar(x));
+            GetCar(x);
     }
     system("cls");
 
@@ -95,13 +95,12 @@ void Admin::Administration() {
         if (choice == 1) AddShow();
         if (choice == 2) AddGarage();
         if (choice == 3) {
-            DisplayShowRooms(1);
+            // 0 to show only showrooms without cars
+            DisplayShowRooms(0);
             cout << "Please enter the index of showroom you wish to add car to : " << endl;
             cin >> choice;
             system("cls");
-
-
-            Rooms[choice].car.push_back(GetCar(Rooms[choice]));
+            GetCar(Rooms[choice]);
         }
         if (choice == 4) {
             DisplayGarage(-1);
@@ -110,7 +109,7 @@ void Admin::Administration() {
             system("cls");
 
 
-            Garages[choice].service.push_back(GetService(Garages[choice]));
+            GetService(Garages[choice]);
         }
         goto Start;
     }
@@ -326,7 +325,6 @@ void Admin::Administration() {
     if (choice == 4) {
         return;
     }
-
 }
 
 void AddGarage() {
@@ -346,7 +344,7 @@ void AddGarage() {
         int n;
         cin >> n;
         for (int i = 0; i < n; i++)
-            x.service.push_back(GetService(x));
+            GetService(x);
     }
     system("cls");
     Garages.push_back(x);
