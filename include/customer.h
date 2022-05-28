@@ -6,6 +6,7 @@
 #include<vector>
 
 using namespace std;
+
 struct ShowRoom_receipt {
     int Process_ID = 0;
     string Customer_ID;

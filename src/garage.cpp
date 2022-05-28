@@ -31,7 +31,7 @@ void GarageReceipt(Garage_receipt receipt) {
 }
 
 // For customers only
-void DisplayGarage(int turn, string &name, vector<Service> &service) {
+void DisplayGarage(int turn, string name, vector<Service> &service) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
     int year = 1900 + ltm->tm_year;
@@ -44,45 +44,43 @@ void DisplayGarage(int turn, string &name, vector<Service> &service) {
         cout << "Garage Phone Number : " << u.phone << endl;
         cout << "Garage Queue Line : " << u.cnt.size() << endl;
         cout << "Garage Index : " << idx++ << endl;
-        if (turn > -1 && !u.service.empty()) {
+        if (!u.service.empty()) {
             cout << "-Services :" << endl;
             u.Display_garage();
         }
     }
-    if (turn > -1) {
-        cout << "Do you want to make an appointment in a certain garage ? (y/n)" << endl;
-        char x;
-        cin >> x;
-        if (x == 'y') {
-            cout << "Enter The Index Of The Garage: " << endl;
-            int ans1, ans2;
-            cin >> ans1;
-            cout << "Enter The Index Of The Service: " << endl;
-            cin >> ans2;
-            Garage_receipt receipt = {++counter, name, {today, month, year},
-                                      Garages[ans1].service[ans2].price,
-                                      Garages[ans1].service[ans2].name};
-            Garages[ans1].service[ans2].date = {today, month, year};
-            service.push_back(Garages[ans1].service[ans2]);
-            cout << "Do You Want Show Your Receipt? (y/n)" << endl;
-            char c;
-            cin >> c;
-            if (c == 'y') {
-                GarageReceipt(receipt);
-                cout << endl;
-            }
-            // cnt.insert(1)
-            // cnt.insert(1)
-            // cnt.insert(2)
-            // cnt.insert(1)
-            // cnt.size() -> 2
-            // we use set to remove duplicates
-            Garages[ans1].cnt.insert(name);
-            cout << Garages[ans1].cnt.size() << " In The Queue" << endl;
-            return;
-        } else {
-            cout << "Ok!" << endl;
+    cout << "Do you want to make an appointment in a certain garage ? (y/n)" << endl;
+    char x;
+    cin >> x;
+    if (x == 'y') {
+        cout << "Enter The Index Of The Garage: " << endl;
+        int ans1, ans2;
+        cin >> ans1;
+        cout << "Enter The Index Of The Service: " << endl;
+        cin >> ans2;
+        Garage_receipt receipt = {++counter, name, {today, month, year},
+                                  Garages[ans1].service[ans2].price,
+                                  Garages[ans1].service[ans2].name};
+        Garages[ans1].service[ans2].date = {today, month, year};
+        service.push_back(Garages[ans1].service[ans2]);
+        cout << "Do You Want Show Your Receipt? (y/n)" << endl;
+        char c;
+        cin >> c;
+        if (c == 'y') {
+            GarageReceipt(receipt);
+            cout << endl;
         }
+        // cnt.insert(1)
+        // cnt.insert(1)
+        // cnt.insert(2)
+        // cnt.insert(1)
+        // cnt.size() -> 2
+        // we use set to remove duplicates
+        Garages[ans1].cnt.insert(name);
+        cout << Garages[ans1].cnt.size() << " In The Queue" << endl;
+        return;
+    } else {
+        cout << "Ok!" << endl;
     }
 }
 
@@ -95,7 +93,7 @@ void DisplayGarage(int turn) {
         cout << "Garage Phone Number : " << u.phone << endl;
         cout << "Garage Queue Line : " << u.cnt.size() << endl;
         cout << "Garage Index : " << idx++ << endl;
-        if (turn > -1 && !u.service.empty())
+        if (!u.service.empty())
             cout << "-Services :" << endl;
         u.Display_garage();
     }

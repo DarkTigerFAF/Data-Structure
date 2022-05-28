@@ -13,12 +13,12 @@ vector<ShowRooms> ShowRooms::Rooms;
 
 void ShowRooms::Display() {
     int idx = 0;
-    for (auto u :car) {
+    for (auto u : car) {
         if (day < u.deadline && u.deadline != 0) continue;
-        cout << "Car Model : " << u.model << endl;
-        cout << "Car Make : " << u.make << endl;
-        cout << "Car Price : " << u.price << endl;
-        cout << "Car Index : " << idx++ << endl;
+        cout << "--Car Model : " << u.model << endl;
+        cout << "--Car Make : " << u.make << endl;
+        cout << "--Car Price : " << u.price << endl;
+        cout << "--Car Index : " << idx++ << endl;
         cout << "-------------------------------- " << endl;
     }
 }
@@ -31,7 +31,7 @@ void ShowRooms::DisplayShowRooms(int turn) {
         cout << "Showroom Phone Number : " << u.phone << endl;
         cout << "Showroom Index : " << idx++ << endl << endl;
         if (turn) {
-            cout << "Cars : " << endl;
+            cout << "-Cars : " << endl;
             u.Display();
             cout << endl;
         }

@@ -13,9 +13,10 @@ vector<customer> customer::Customers;
 
 template<typename T>
 void Erase(vector<T> &X, int idx) {
-    swap(X[idx], X.back());
+    if(X.empty()) return;
 
-    if (!X.empty()) X.pop_back();
+    swap(X[idx], X.back());
+    X.pop_back();
 }
 
 void customer::registration() {

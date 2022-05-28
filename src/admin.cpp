@@ -15,9 +15,10 @@ int choice;
 
 template <typename T>
 void Erase(vector<T> &X, int idx) {
-    swap(X[idx], X.back());
+    if(X.empty()) return;
 
-    if (!X.empty()) X.pop_back();
+    swap(X[idx], X.back());
+    X.pop_back();
 }
 
 void Admin::GetCar(ShowRooms &X) {
@@ -81,7 +82,6 @@ void Admin::Administration() {
     cin >> choice;
     system("cls");
 
-
     if (choice == 1) {
         cout << "1 : Showroom" << endl;
         cout << "2 : Garage" << endl;
@@ -121,7 +121,6 @@ void Admin::Administration() {
         cin >> choice;
         system("cls");
 
-
         if (choice == 1) {
             int idx;
             DisplayShowRooms(0);
@@ -129,14 +128,12 @@ void Admin::Administration() {
             cin >> idx;
             system("cls");
 
-
             cout << "Choose the index of the attribute to change." << endl;
             cout << "1 : Name" << endl;
             cout << "2 : location" << endl;
             cout << "3 : Phone Number" << endl;
             cin >> choice;
             system("cls");
-
 
             if (choice == 1) {
                 cout << "Enter showroom new name : " << endl;
@@ -163,7 +160,6 @@ void Admin::Administration() {
             cout << "Please enter the index of the garage : " << endl;
             cin >> idx;
             system("cls");
-
 
             cout << "Choose the index of the attribute to change." << endl;
             cout << "1 : Name" << endl;
