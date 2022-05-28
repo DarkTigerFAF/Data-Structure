@@ -4,16 +4,19 @@
 #include<vector>
 
 using namespace std;
-time_t now = time(0);
-tm *ltm = localtime(&now);
-int day = ltm->tm_mday;
+
+time_t now2 = time(0);
+tm *ltm2 = localtime(&now2);
+int year2 = 1900 + ltm2->tm_year;
+int month2 = 1 + ltm2->tm_mon;
+int today2 = ltm2->tm_mday;
 vector<ShowRooms> ShowRooms::Rooms;
 
 // Bassel's task
-
 void ShowRooms::Display() {
     int idx = 0;
     for (auto u : car) {
+        int day = today2 + (30 * month2) + (365 * year2);
         if (day < u.deadline && u.deadline != 0) continue;
         cout << "--Car Model : " << u.model << endl;
         cout << "--Car Make : " << u.make << endl;

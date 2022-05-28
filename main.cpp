@@ -8,6 +8,9 @@ using namespace std;
 #define DisplayShowRooms ShowRooms::DisplayShowRooms
 #define DisplayGarage garage::DisplayGarage
 #define Garages garage::Garages
+#define Customers customer::Customers
+#define user customer::user
+#define page customer::page
 
 void GoodMorning() {
     ifstream input;
@@ -55,14 +58,14 @@ void GoodMorning() {
     for (int i = 0; i < n; i++) {
         customer X;
         input >> X.name >> X.pass;
-        customer::user.insert({X.name, X.pass});
+        user.insert({X.name, X.pass});
         int m; input >> m;
         for (int j = 0; j < m; j++) {
             Service Y;
             input >> Y.name >> Y.price >> Y.date.day >> Y.date.month >> Y.date.year;
             X.HistoricService.push_back(Y);
         }
-        customer::Customers.push_back(X);
+        Customers.push_back(X);
     }
     input.close();
 }
@@ -97,8 +100,8 @@ void GoodBye() {
     output.close();
 
     output.open("Users.txt");
-    output << customer::Customers.size() << endl;
-    for (auto u : customer::Customers) {
+    output << Customers.size() << endl;
+    for (auto u : Customers) {
         output << u.name << ' ' << u.pass << endl;
         output << u.HistoricService.size() << endl;
         for(auto v : u.HistoricService)
@@ -110,6 +113,6 @@ void GoodBye() {
 
 int main() {
     GoodMorning();
-    customer::page();
+    page();
     GoodBye();
 }

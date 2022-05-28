@@ -8,8 +8,12 @@ using namespace std;
 #define Garages garage::Garages
 vector<garage> garage::Garages;
 
+time_t now3 = time(0);
+tm *ltm3 = localtime(&now3);
+int year3 = 1900 + ltm3->tm_year;
+int month3 = 1 + ltm3->tm_mon;
+int today3 = ltm3->tm_mday;
 // Fathy's task
-
 int counter = 0;
 
 void garage::Display_garage() {
@@ -18,6 +22,7 @@ void garage::Display_garage() {
         cout << "--Service Name : " << u.name << endl;
         cout << "--Service Price : " << u.price << endl;
         cout << "--Service Index : " << idx++ << endl;
+        cout << "-------------------------------- " << endl;
     }
     cout << endl;
 }
@@ -31,12 +36,7 @@ void GarageReceipt(Garage_receipt receipt) {
 }
 
 // For customers only
-void DisplayGarage(int turn, string name, vector<Service> &service) {
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
-    int year = 1900 + ltm->tm_year;
-    int month = 1 + ltm->tm_mon;
-    int today = ltm->tm_mday;
+void DisplayGarage(string name, vector<Service> &service) {
     int idx = 0;
     for (auto u : Garages) {
         cout << "Garage Name : " << u.name << endl;
@@ -58,10 +58,11 @@ void DisplayGarage(int turn, string name, vector<Service> &service) {
         cin >> ans1;
         cout << "Enter The Index Of The Service: " << endl;
         cin >> ans2;
-        Garage_receipt receipt = {++counter, name, {today, month, year},
+        system("cls");
+        Garage_receipt receipt = {++counter, name, {today3, month3, year3},
                                   Garages[ans1].service[ans2].price,
                                   Garages[ans1].service[ans2].name};
-        Garages[ans1].service[ans2].date = {today, month, year};
+        Garages[ans1].service[ans2].date = {today3, month3, year3};
         service.push_back(Garages[ans1].service[ans2]);
         cout << "Do You Want Show Your Receipt? (y/n)" << endl;
         char c;
@@ -85,7 +86,7 @@ void DisplayGarage(int turn, string name, vector<Service> &service) {
 }
 
 // For admin only
-void DisplayGarage(int turn) {
+void DisplayGarage() {
     int idx = 0;
     for (auto u : Garages) {
         cout << "Garage Name : " << u.name << endl;
